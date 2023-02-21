@@ -1,6 +1,7 @@
 import * as plugins from './plugins';
 
-import { AlertDisplay, OAuthRequestDialog } from '@backstage/core-components';
+import { AlertDisplay, OAuthRequestDialog, SignInPage } from '@backstage/core-components';
+import { gitlabAuthApiRef } from '@backstage/core-plugin-api';
 import { AppRouter, FlatRoutes } from '@backstage/core-app-api';
 import {
   CatalogEntityPage,
@@ -43,6 +44,23 @@ import { searchPage } from './components/search/SearchPage';
 const app = createApp({
   apis,
   plugins: Object.values(plugins),
+  components: {
+    SignInPage: props => {
+      return (
+        <SignInPage
+          {...props}
+          providers={['guest', 'custom', {
+            id: 'gitlab-auth-provider',
+            title: 'GitLab',
+            message: 'Sign in using GitLab',
+            apiRef: gitlabAuthApiRef,
+          }]}
+          title="Select a sign-in method"
+          align="center"
+        />
+      );
+    },
+  },
   bindRoutes({ bind }) {
     bind(catalogPlugin.externalRoutes, {
       viewTechDoc: techdocsPlugin.routes.docRoot,

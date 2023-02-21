@@ -37,6 +37,11 @@ integrations:
   github:
     - host: github.com
       token: ${GITHUB_TOKEN}
+  gitlab:
+    - host: gitlab.com
+      token: ${GITLAB_TOKEN}
+      # apiBaseUrl: https://gitlab.example.com/api/v4
+      # baseUrl: https://gitlab.example.com
 
 auth:
   environment: development
@@ -45,6 +50,10 @@ auth:
       development:
         clientId: ${GITHUB_DEVELOPMENT_CLIENT_ID}
         clientSecret: ${GITHUB_DEVELOPMENT_CLIENT_SECRET}
+    gitlab:
+      development:
+        clientId: foo
+        clientSecret: bar
 
 catalog:
   readonly: true
